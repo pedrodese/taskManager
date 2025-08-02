@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: taskmanager
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taskmanager
+    username: taskmanager_user
+    password: taskmanager_password
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    
