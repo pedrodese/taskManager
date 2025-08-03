@@ -119,8 +119,8 @@ mvnw.cmd spring-boot:run
 
 ## 🛠️ Tecnologias
 
-- **Java 17**
-- **Spring Boot 3.2**
+- **Java 21**
+- **Spring Boot 3.5.4**
 - **Spring Data JPA**
 - **PostgreSQL**
 - **Maven**
@@ -128,6 +128,40 @@ mvnw.cmd spring-boot:run
 - **JUnit 5 + Mockito**
 - **Lombok**
 - **Bean Validation**
+- **SpringDoc OpenAPI**
+
+## 🎯 Decisões Técnicas
+
+### Mapeamento de Objetos
+Optei por implementar os Mappers de forma manual (`TaskMapper`, `UserMapper`, `SubtaskMapper`) para ter controle total sobre o mapeamento entre entidades e DTOs. Em uma implementação futura, consideraria adicionar o **MapStruct** para automatizar esse processo, mantendo a performance e reduzindo boilerplate code.
+
+### Queries e Filtros
+Implementei queries customizadas usando `@Query` do Spring Data JPA para filtros de tarefas. Em uma implementação futura, consideraria migrar para **QueryDSL** por ser mais performática e type-safe, especialmente para queries complexas e dinâmicas. A escolha atual foi adequada para a simplicidade do projeto.
+
+### Framework de Testes
+Utilizei **JUnit 5** e **Mockito** como framework de testes por familiaridade e maturidade das ferramentas. Os testes cobrem cenários de sucesso e exceções, garantindo a robustez da aplicação.
+
+### Segurança
+A aplicação atual não possui autenticação implementada. Em uma implementação futura, consideraria adicionar:
+- **Spring Security** com **OAuth2**
+- **JWT (JSON Web Tokens)** para autenticação stateless
+- Controle de acesso baseado em roles (RBAC)
+
+### Arquitetura
+A arquitetura atual segue o padrão **Layered Architecture** (Controller → Service → Repository). Para projetos mais complexos, consideraria migrar para **Domain-Driven Design (DDD)** com:
+- Camadas bem definidas (Domain, Application, Infrastructure)
+- Aggregates e Value Objects
+- Domain Events
+- CQRS (Command Query Responsibility Segregation)
+
+### Banco de Dados
+Utilizei **PostgreSQL** por ser robusto e adequado para aplicações em produção. Para implementações futuras, consideraria:
+- Migrations com **Flyway** ou **Liquibase**
+- Índices otimizados para queries frequentes
+- Soft delete implementado nas entidades
+
+### Documentação da API
+Implementei **SpringDoc OpenAPI** para documentação automática da API, facilitando o consumo pelos clientes e testes via Swagger UI.
 
 ## 🧪 Testes
 
