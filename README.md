@@ -1,6 +1,6 @@
 # TaskManager API
 
-API REST para gerenciamento de tarefas internas desenvolvida em Spring Boot.
+API RESTful para gerenciamento de tarefas internas desenvolvida em Spring Boot.
 
 ## Como executar
 
@@ -90,6 +90,8 @@ mvnw.cmd spring-boot:run
 
 **Documentação completa disponível em:** http://localhost:8080/swagger-ui.html
 
+**Collection do Postman:** Importe o arquivo `TaskManager.postman_collection.json` (na raiz do projeto) no Postman para testar todos os endpoints com exemplos prontos.
+
 ### Usuários
 
 | Método | Endpoint | Descrição |
@@ -165,6 +167,7 @@ Implementei **SpringDoc OpenAPI** para documentação automática da API, facili
 
 ## Testes
 
+### Testes Unitários
 Execute os testes:
 ```bash
 # Linux/Mac
@@ -176,6 +179,18 @@ Execute os testes:
 # Ou com Maven instalado (todas as plataformas)
 mvn test
 ```
+
+### Testes da API com Postman
+1. **Importe a Collection:**
+   - Abra o Postman
+   - Clique em "Import"
+   - Selecione o arquivo `TaskManager.postman_collection.json`
+
+2. **Execute os Testes:**
+   - A collection está organizada por funcionalidade (Usuários, Tarefas, Subtarefas)
+   - Execute os requests na ordem sugerida para testar o fluxo completo
+
+**Arquivo da Collection:** `TaskManager.postman_collection.json` (na raiz do projeto)
 
 ## Gerenciamento dos Containers
 
