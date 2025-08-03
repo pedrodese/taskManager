@@ -2,7 +2,7 @@
 
 API RESTful para gerenciamento de tarefas internas desenvolvida em Spring Boot.
 
-## 🚀 Como executar
+## Como executar
 
 ### Com Docker (Recomendado)
 
@@ -86,9 +86,11 @@ docker-compose logs postgres
 mvnw.cmd spring-boot:run
 ```
 
-## 📋 Endpoints
+## Endpoints
 
-**📚 Documentação completa disponível em:** http://localhost:8080/swagger-ui.html
+**Documentação completa disponível em:** http://localhost:8080/swagger-ui.html
+
+**Collection do Postman:** Importe o arquivo `TaskManager.postman_collection.json` (na raiz do projeto) no Postman para testar todos os endpoints com exemplos prontos.
 
 ### Usuários
 
@@ -117,7 +119,7 @@ mvnw.cmd spring-boot:run
 | GET | `/api/v1/subtasks/{subtaskId}` | Buscar subtarefa por ID |
 | PATCH | `/api/v1/subtasks/{subtaskId}/status` | Atualizar status da subtarefa |
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **Java 21**
 - **Spring Boot 3.5.4**
@@ -130,7 +132,7 @@ mvnw.cmd spring-boot:run
 - **Bean Validation**
 - **SpringDoc OpenAPI**
 
-## 🎯 Decisões Técnicas
+## Decisões Técnicas
 
 ### Mapeamento de Objetos
 Optei por implementar os Mappers de forma manual (`TaskMapper`, `UserMapper`, `SubtaskMapper`) para ter controle total sobre o mapeamento entre entidades e DTOs. Em uma implementação futura, consideraria adicionar o **MapStruct** para automatizar esse processo, mantendo a performance e reduzindo boilerplate code.
@@ -163,8 +165,9 @@ Utilizei **PostgreSQL** por ser robusto e adequado para aplicações em produç�
 ### Documentação da API
 Implementei **SpringDoc OpenAPI** para documentação automática da API, facilitando o consumo pelos clientes e testes via Swagger UI.
 
-## 🧪 Testes
+## Testes
 
+### Testes Unitários
 Execute os testes:
 ```bash
 # Linux/Mac
@@ -177,7 +180,19 @@ Execute os testes:
 mvn test
 ```
 
-## 📊 Gerenciamento dos Containers
+### Testes da API com Postman
+1. **Importe a Collection:**
+   - Abra o Postman
+   - Clique em "Import"
+   - Selecione o arquivo `TaskManager.postman_collection.json`
+
+2. **Execute os Testes:**
+   - A collection está organizada por funcionalidade (Usuários, Tarefas, Subtarefas)
+   - Execute os requests na ordem sugerida para testar o fluxo completo
+
+**Arquivo da Collection:** `TaskManager.postman_collection.json` (na raiz do projeto)
+
+## Gerenciamento dos Containers
 
 ```bash
 # Linux/Mac/Windows
@@ -201,7 +216,7 @@ docker-compose down -v
 docker-compose up --build -d
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 **Problema:** Aplicação não inicia
 ```bash
