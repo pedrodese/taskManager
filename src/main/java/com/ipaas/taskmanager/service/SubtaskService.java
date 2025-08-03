@@ -40,7 +40,6 @@ public class SubtaskService {
     }
 
     public List<SubtaskResponseDTO> getSubtasksByTaskId(UUID taskId) {
-        // Verificar se a tarefa existe
         if (!taskRepository.existsById(taskId)) {
             throw new TaskNotFoundException("Task not found with id: " + taskId);
         }
@@ -56,7 +55,6 @@ public class SubtaskService {
         TaskStatus newStatus = updateSubtaskStatusDTO.getStatus();
         subtask.setStatus(newStatus);
 
-        // Atualizar data de conclusão se o status for COMPLETED
         if (newStatus == TaskStatus.COMPLETED) {
             subtask.setCompletedAt(LocalDateTime.now());
         } else {

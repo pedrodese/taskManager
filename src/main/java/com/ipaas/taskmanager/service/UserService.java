@@ -29,43 +29,33 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserResponseDTO createUser(CreateUserDTO createUserDTO) {
-        log.info("Iniciando criação de usuário com email: {}", createUserDTO.getEmail());
-        
         if(userRepository.existsByEmail(createUserDTO.getEmail())) {
-            log.warn("Tentativa de criar usuário com email já existente: {}", createUserDTO.getEmail());
             throw new UserAlreadyExistsException("Already exists a user with this email: " + createUserDTO.getEmail());
         }
         
         User user = userMapper.toEntity(createUserDTO);
         User savedUser = userRepository.save(user);
         
-        log.info("Usuário criado com sucesso. ID: {}, Email: {}", savedUser.getId(), savedUser.getEmail());
         return userMapper.toDTO(savedUser);
     }
 
     public UserResponseDTO getUserById(UUID userId) {
-        log.info("Buscando usuário com ID: {}", userId);
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
         
         if (!user.getActive()) {
-            log.warn("Tentativa de acessar usuário inativo. ID: {}", userId);
             throw new UserInactiveException("This user is inactive: " + userId);
         }
         
-        log.info("Usuário encontrado com sucesso. ID: {}, Email: {}", user.getId(), user.getEmail());
         return userMapper.toDTO(user);
     }
 
     public UserResponseDTO updateUser(UUID userId, UpdateUserDTO updateUserDTO) {
-        log.info("Atualizando usuário com ID: {}", userId);
-        
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
         
         if (updateUserDTO.getEmail() != null && !updateUserDTO.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(updateUserDTO.getEmail())) {
-                log.warn("Tentativa de atualizar usuário com email já existente: {}", updateUserDTO.getEmail());
                 throw new UserAlreadyExistsException("Already exists a user with this email: " + updateUserDTO.getEmail());
             }
         }
@@ -80,18 +70,14 @@ public class UserService {
         
         User updatedUser = userRepository.save(user);
         
-        log.info("Usuário atualizado com sucesso. ID: {}, Email: {}", updatedUser.getId(), updatedUser.getEmail());
         return userMapper.toDTO(updatedUser);
     }
 
     public void deleteUser(UUID userId) {
-        log.info("Iniciando soft delete do usuário com ID: {}", userId);
-        
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
         
         if (!user.getActive()) {
-            log.warn("Tentativa de deletar usuário já inativo. ID: {}", userId);
             throw new IllegalStateException("This user is inactive: " + userId);
         }
         
@@ -99,6 +85,5 @@ public class UserService {
         user.setDeletedAt(LocalDateTime.now());
         userRepository.save(user);
         
-        log.info("Usuário deletado com sucesso (soft delete). ID: {}, Email: {}", user.getId(), user.getEmail());
     }
 }
