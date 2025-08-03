@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.ipaas.taskmanager.dto.response.ErrorResponseDTO;
+import com.ipaas.taskmanager.exception.task.TaskCannotBeCompletedException;
+import com.ipaas.taskmanager.exception.task.TaskNotFoundException;
+import com.ipaas.taskmanager.exception.task.InvalidTaskStatusTransitionException;
 import com.ipaas.taskmanager.exception.user.UserAlreadyExistsException;
 import com.ipaas.taskmanager.exception.user.UserInactiveException;
 import com.ipaas.taskmanager.exception.user.UserNotFoundException;
@@ -86,6 +89,45 @@ public class GlobalExceptionHandler {
             request.getDescription(false)
         );
         
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleTaskNotFoundException(
+            TaskNotFoundException ex, WebRequest request) {
+        
+        ErrorResponseDTO error = ErrorResponseDTO.of(
+            HttpStatus.NOT_FOUND.value(),
+            "NOT_FOUND",
+            ex.getMessage(),
+            request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(TaskCannotBeCompletedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleTaskCannotBeCompletedException(
+            TaskCannotBeCompletedException ex, WebRequest request) {
+        
+        ErrorResponseDTO error = ErrorResponseDTO.of(
+            HttpStatus.BAD_REQUEST.value(),
+            "BAD_REQUEST",
+            ex.getMessage(),
+            request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(InvalidTaskStatusTransitionException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInvalidTaskStatusTransitionException(
+            InvalidTaskStatusTransitionException ex, WebRequest request) {
+        
+        ErrorResponseDTO error = ErrorResponseDTO.of(
+            HttpStatus.BAD_REQUEST.value(),
+            "BAD_REQUEST",
+            ex.getMessage(),
+            request.getDescription(false)
+        );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
