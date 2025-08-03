@@ -1,6 +1,6 @@
 # TaskManager API
 
-API RESTful para gerenciamento de tarefas internas desenvolvida em Spring Boot.
+API REST para gerenciamento de tarefas internas desenvolvida em Spring Boot.
 
 ## Como executar
 
@@ -177,7 +177,7 @@ Execute os testes:
 mvn test
 ```
 
-## 📊 Gerenciamento dos Containers
+## Gerenciamento dos Containers
 
 ```bash
 # Linux/Mac/Windows
