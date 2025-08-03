@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ipaas.taskmanager.domain.entity.Subtask;
 import com.ipaas.taskmanager.domain.entity.Task;
 import com.ipaas.taskmanager.domain.entity.User;
 import com.ipaas.taskmanager.domain.enums.TaskStatus;
@@ -23,6 +24,7 @@ import com.ipaas.taskmanager.exception.task.InvalidTaskStatusTransitionException
 import com.ipaas.taskmanager.exception.user.UserInactiveException;
 import com.ipaas.taskmanager.exception.user.UserNotFoundException;
 import com.ipaas.taskmanager.mapper.TaskMapper;
+import com.ipaas.taskmanager.repository.SubtaskRepository;
 import com.ipaas.taskmanager.repository.TaskRepository;
 import com.ipaas.taskmanager.repository.UserRepository;
 
@@ -35,6 +37,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
+    private final SubtaskRepository subtaskRepository;
     private final TaskMapper taskMapper;
 
     public TaskResponseDTO createTask(CreateTaskDTO createTaskDTO) {
@@ -123,8 +126,9 @@ public class TaskService {
     }
 
     private void validateTaskCanBeCompleted(Task task) {
-        if (task.getSubtasks() != null && !task.getSubtasks().isEmpty()) {
-            boolean hasIncompleteSubtasks = task.getSubtasks().stream()
+        List<Subtask> subtasks = subtaskRepository.findByTaskId(task.getId());
+        if (!subtasks.isEmpty()) {
+            boolean hasIncompleteSubtasks = subtasks.stream()
                 .anyMatch(subtask -> subtask.getStatus() != TaskStatus.COMPLETED);
             
             if (hasIncompleteSubtasks) {
