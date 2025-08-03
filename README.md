@@ -2,7 +2,7 @@
 
 API RESTful para gerenciamento de tarefas internas desenvolvida em Spring Boot.
 
-## 🚀 Como executar
+## Como executar
 
 ### Com Docker (Recomendado)
 
@@ -86,9 +86,9 @@ docker-compose logs postgres
 mvnw.cmd spring-boot:run
 ```
 
-## 📋 Endpoints
+## Endpoints
 
-**📚 Documentação completa disponível em:** http://localhost:8080/swagger-ui.html
+**Documentação completa disponível em:** http://localhost:8080/swagger-ui.html
 
 ### Usuários
 
@@ -117,7 +117,7 @@ mvnw.cmd spring-boot:run
 | GET | `/api/v1/subtasks/{subtaskId}` | Buscar subtarefa por ID |
 | PATCH | `/api/v1/subtasks/{subtaskId}/status` | Atualizar status da subtarefa |
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **Java 21**
 - **Spring Boot 3.5.4**
@@ -130,7 +130,7 @@ mvnw.cmd spring-boot:run
 - **Bean Validation**
 - **SpringDoc OpenAPI**
 
-## 🎯 Decisões Técnicas
+## Decisões Técnicas
 
 ### Mapeamento de Objetos
 Optei por implementar os Mappers de forma manual (`TaskMapper`, `UserMapper`, `SubtaskMapper`) para ter controle total sobre o mapeamento entre entidades e DTOs. Em uma implementação futura, consideraria adicionar o **MapStruct** para automatizar esse processo, mantendo a performance e reduzindo boilerplate code.
@@ -163,7 +163,7 @@ Utilizei **PostgreSQL** por ser robusto e adequado para aplicações em produç�
 ### Documentação da API
 Implementei **SpringDoc OpenAPI** para documentação automática da API, facilitando o consumo pelos clientes e testes via Swagger UI.
 
-## 🧪 Testes
+## Testes
 
 Execute os testes:
 ```bash
@@ -201,7 +201,7 @@ docker-compose down -v
 docker-compose up --build -d
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 **Problema:** Aplicação não inicia
 ```bash
