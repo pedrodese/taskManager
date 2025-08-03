@@ -12,4 +12,26 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  info:
+    title: Task Manager API
+    description: API para gerenciamento de tarefas e usuários
+    version: 1.0.0
+    contact:
+      name: iPaaS Team
+      email: contato@ipaas.com
+      url: https://ipaas.com
+    license:
+      name: MIT License
+      url: https://opensource.org/licenses/MIT
     
