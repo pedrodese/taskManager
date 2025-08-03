@@ -12,6 +12,7 @@ import com.ipaas.taskmanager.dto.response.ErrorResponseDTO;
 import com.ipaas.taskmanager.exception.task.TaskCannotBeCompletedException;
 import com.ipaas.taskmanager.exception.task.TaskNotFoundException;
 import com.ipaas.taskmanager.exception.task.InvalidTaskStatusTransitionException;
+import com.ipaas.taskmanager.exception.subtask.SubtaskNotFoundException;
 import com.ipaas.taskmanager.exception.user.UserAlreadyExistsException;
 import com.ipaas.taskmanager.exception.user.UserInactiveException;
 import com.ipaas.taskmanager.exception.user.UserNotFoundException;
@@ -129,5 +130,18 @@ public class GlobalExceptionHandler {
             request.getDescription(false)
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(SubtaskNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleSubtaskNotFoundException(
+            SubtaskNotFoundException ex, WebRequest request) {
+        
+        ErrorResponseDTO error = ErrorResponseDTO.of(
+            HttpStatus.NOT_FOUND.value(),
+            "NOT_FOUND",
+            ex.getMessage(),
+            request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }
